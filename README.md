@@ -2,7 +2,7 @@
 
 Bienvenido a **KinderStore**, una plataforma de comercio electrónico moderna y minimalista diseñada para papelerías y tiendas de útiles escolares. Construida con tecnologías de vanguardia para ofrecer una experiencia rápida, fluida y profesional.
 
-## 🚀 Características Principales
+## Características Principales
 
 - **Diseño Glassmorphism**: Interfaz moderna con efectos de cristal, degradados elegantes (Púrpura a Rosa) y animaciones fluidas.
 - **Catálogo Dinámico**: Visualización de productos con filtrado por categorías en tiempo real.
@@ -12,14 +12,14 @@ Bienvenido a **KinderStore**, una plataforma de comercio electrónico moderna y 
 - **Checkout vía WhatsApp**: Finalización de compra optimizada enviando el resumen del pedido directamente al vendedor vía WhatsApp.
 - **Imágenes Versátiles**: Soporte para imágenes locales y externas, evitando la necesidad de planes de pago adicionales.
 
-## 🛠️ Tecnologías
+## Tecnologías
 
 - **Framework**: [Next.js 14+](https://nextjs.org/) (App Router)
 - **Estilos**: [Tailwind CSS](https://tailwindcss.com/)
 - **Backend / DB**: [Firebase](https://firebase.google.com/) (Firestore & Auth)
 - **Lenguaje**: TypeScript
 
-## 🏁 Configuración Local
+## Configuración Local
 
 Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 
@@ -54,14 +54,3 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local:
    ```bash
    npm run dev
    ```
-
-5. **Abre en tu navegador**:
-   Visita [http://localhost:3000](http://localhost:3000) para ver el resultado.
-
-## 🚢 Despliegue
-
-La forma más rápida de desplegar es usando la [Plataforma de Vercel](https://vercel.com/new). Asegúrate de configurar las variables de entorno mencionadas anteriormente en el panel de Vercel.
-
----
-
-Desarrollado con ❤️ para KinderStore.
