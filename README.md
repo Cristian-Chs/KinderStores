@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KinderStore — E-commerce de Papelería
 
-## Getting Started
+Bienvenido a **KinderStore**, una plataforma de comercio electrónico moderna y minimalista diseñada para papelerías y tiendas de útiles escolares. Construida con tecnologías de vanguardia para ofrecer una experiencia rápida, fluida y profesional.
 
-First, run the development server:
+## 🚀 Características Principales
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Diseño Glassmorphism**: Interfaz moderna con efectos de cristal, degradados elegantes (Púrpura a Rosa) y animaciones fluidas.
+- **Catálogo Dinámico**: Visualización de productos con filtrado por categorías en tiempo real.
+- **Autenticación Completa**: Registro e inicio de sesión seguro mediante Firebase (Correo/Contraseña y Google).
+- **Panel Administrativo Inline**: Los administradores pueden gestionar productos (crear, editar, eliminar) directamente desde la tienda.
+- **Carrito de Compras**: Sistema persistente para gestionar pedidos.
+- **Checkout vía WhatsApp**: Finalización de compra optimizada enviando el resumen del pedido directamente al vendedor vía WhatsApp.
+- **Imágenes Versátiles**: Soporte para imágenes locales y externas, evitando la necesidad de planes de pago adicionales.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tecnologías
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 14+](https://nextjs.org/) (App Router)
+- **Estilos**: [Tailwind CSS](https://tailwindcss.com/)
+- **Backend / DB**: [Firebase](https://firebase.google.com/) (Firestore & Auth)
+- **Lenguaje**: TypeScript
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏁 Configuración Local
 
-## Learn More
+Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clona el repositorio**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone [url-del-repo]
+   cd Kinderpapeleria
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Instala las dependencias**:
 
-## Deploy on Vercel
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Configura las variables de entorno**:
+   Crea un archivo `.env.local` en la raíz del proyecto y añade tus credenciales de Firebase:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=tu_api_key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=tu_dominio.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu_bucket.firebasestorage.app
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=tu_app_id
+   NEXT_PUBLIC_WHATSAPP_NUMBER=+584246188448
+   ```
+
+4. **Inicia el servidor de desarrollo**:
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Abre en tu navegador**:
+   Visita [http://localhost:3000](http://localhost:3000) para ver el resultado.
+
+## 🚢 Despliegue
+
+La forma más rápida de desplegar es usando la [Plataforma de Vercel](https://vercel.com/new). Asegúrate de configurar las variables de entorno mencionadas anteriormente en el panel de Vercel.
+
+---
+
+Desarrollado con ❤️ para KinderStore.
