@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
-import { NAV_LINKS, SITE_NAME } from "@/lib/constants";
+import { NAV_LINKS, SITE_NAME, ADMIN_EMAILS } from "@/lib/constants";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,7 +66,7 @@ export default function Navbar() {
             {/* Auth */}
             {user ? (
               <div className="hidden md:flex items-center gap-2">
-                {user.email === "admin@kinderpapeleria.com" && (
+                {user.email && ADMIN_EMAILS.includes(user.email) && (
                   <Link
                     href="/admin"
                     className="px-3 py-1.5 rounded-xl text-xs font-medium bg-purple-100 text-purple-700 hover:bg-purple-200 transition-all duration-200"
@@ -110,9 +110,8 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
       >
         <div className="px-4 pb-4 space-y-1">
           {NAV_LINKS.map((link) => (
@@ -127,7 +126,7 @@ export default function Navbar() {
           ))}
           {user ? (
             <>
-              {user.email === "admin@kinderstore.com" && (
+              {user.email && ADMIN_EMAILS.includes(user.email) && (
                 <Link
                   href="/admin"
                   onClick={() => setIsMenuOpen(false)}

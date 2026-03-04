@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import ProductForm from "./ProductForm";
 import { Product } from "@/types";
+import { ADMIN_EMAILS } from "@/lib/constants";
 
 interface EditProductModalProps {
   product: Product | null;
@@ -12,24 +13,24 @@ interface EditProductModalProps {
 
 export default function EditProductModal({ product, isOpen, onClose }: EditProductModalProps) {
   const { user } = useAuth();
-  
-  if (!isOpen || !product || user?.email !== "admin@kinderpapeleria.com") return null;
+
+  if (!isOpen || !product || !user?.email || !ADMIN_EMAILS.includes(user.email)) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Overlay */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
       <div className="relative w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 overflow-hidden animate-fade-in-up">
         <div className="p-6 border-b border-gray-100 flex items-center justify-between">
           <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
             Editar Producto
           </h2>
-          <button 
+          <button
             onClick={onClose}
             className="p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all"
           >
@@ -38,7 +39,7 @@ export default function EditProductModal({ product, isOpen, onClose }: EditProdu
             </svg>
           </button>
         </div>
-        
+
         <div className="p-6 max-h-[80vh] overflow-y-auto">
           <ProductForm product={product} onSave={onClose} />
         </div>

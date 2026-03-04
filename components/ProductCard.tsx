@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Product } from "@/types";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import { ADMIN_EMAILS } from "@/lib/constants";
 
 interface ProductCardProps {
   product: Product;
@@ -13,8 +14,8 @@ interface ProductCardProps {
 export default function ProductCard({ product, onEdit }: ProductCardProps) {
   const { addToCart } = useCart();
   const { user } = useAuth();
-  
-  const isAdmin = user?.email === "admin@kinderpapeleria.com";
+
+  const isAdmin = Boolean(user?.email && ADMIN_EMAILS.includes(user.email));
 
   return (
     <div className="group bg-white/70 backdrop-blur-sm rounded-2xl border border-white/40 shadow-lg shadow-purple-500/5 overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300">
@@ -35,12 +36,12 @@ export default function ProductCard({ product, onEdit }: ProductCardProps) {
             </svg>
           </div>
         )}
-        
+
         <div className="absolute top-3 right-3 flex flex-col gap-2">
           <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/80 backdrop-blur-sm text-purple-600 border border-purple-100 shadow-sm">
             {product.category}
           </span>
-          
+
           {/* Admin Edit Button */}
           {isAdmin && onEdit && (
             <button

@@ -3,6 +3,11 @@ export const SITE_DESCRIPTION = "Tu tienda favorita con los mejores productos es
 
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+1234567890";
 
+export const ADMIN_EMAILS = [
+  "adminkinder@gmail.com",
+  "cristian.adrian.chirinos2@gmail.com",
+];
+
 export const DEFAULT_CATEGORIES = [
   "Cuadernos",
   "Lápices y Colores",

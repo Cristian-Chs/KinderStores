@@ -2,22 +2,23 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect, ReactNode } from "react";
+import { useEffect } from "react";
+import { ADMIN_EMAILS } from "@/lib/constants";
 
-interface ProtectedRouteProps {
-  children: ReactNode;
+export default function ProtectedRoute({
+  children,
+  adminOnly = false,
+}: {
+  children: React.ReactNode;
   adminOnly?: boolean;
-}
-
-export default function ProtectedRoute({ children, adminOnly = false }: ProtectedRouteProps) {
+}) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!loading && !user) {
       router.push("/login");
-    }
-    if (!loading && adminOnly && user?.email !== "admin@kinderpapeleria.com") {
+    } else if (!loading && adminOnly && (!user?.email || !ADMIN_EMAILS.includes(user.email))) {
       router.push("/");
     }
   }, [user, loading, router, adminOnly]);
@@ -33,7 +34,7 @@ export default function ProtectedRoute({ children, adminOnly = false }: Protecte
     );
   }
 
-  if (!user || (adminOnly && user.email !== "admin@kinderpapeleria.com")) {
+  if (!user || (adminOnly && !ADMIN_EMAILS.includes(user.email || ""))) {
     return null;
   }
 
