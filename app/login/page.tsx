@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login, loginWithGoogle } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const fromCheckout = searchParams.get("redirect") === "checkout";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +44,22 @@ export default function LoginPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-md animate-fade-in-up">
         <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-xl shadow-purple-500/10 border border-white/40">
+
+          {/* Checkout context banner */}
+          {fromCheckout && (
+            <div className="mb-6 flex items-start gap-3 rounded-2xl bg-purple-50 border border-purple-100 p-4">
+              <div className="p-1.5 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex-shrink-0">
+                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-purple-800">¡Ya casi terminas tu pedido!</p>
+                <p className="text-xs text-purple-600 mt-0.5">Inicia sesión para finalizar tu compra por WhatsApp.</p>
+              </div>
+            </div>
+          )}
+
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Bienvenido de nuevo
@@ -103,12 +121,23 @@ export default function LoginPage() {
 
           <p className="text-center mt-6 text-sm text-gray-500">
             ¿No tienes una cuenta?{" "}
-            <Link href="/register" className="text-purple-600 font-semibold hover:underline">
+            <Link
+              href={fromCheckout ? "/register?redirect=checkout" : "/register"}
+              className="text-purple-600 font-semibold hover:underline"
+            >
               Regístrate aquí
             </Link>
           </p>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-purple-400 border-t-transparent animate-spin" /></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

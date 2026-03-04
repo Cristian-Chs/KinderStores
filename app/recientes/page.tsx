@@ -5,6 +5,7 @@ import { collection, query, onSnapshot, orderBy, limit } from "firebase/firestor
 import { db } from "@/firebase/config";
 import { Product } from "@/types";
 import ProductCard from "@/components/ProductCard";
+import LiveSection from "@/components/LiveSection";
 
 export default function RecentProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,6 +28,7 @@ export default function RecentProductsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
+      {/* Page title */}
       <div className="mb-12">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
           Recientes
@@ -34,6 +36,17 @@ export default function RecentProductsPage() {
         <p className="text-gray-500 mt-2 text-lg">¡Lo último que ha llegado a KinderStore!</p>
       </div>
 
+      {/* 🔴 Sección LIVE */}
+      <LiveSection />
+
+      {/* Divisor */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className="flex-1 h-px bg-gray-200" />
+        <span className="text-sm font-medium text-gray-400 px-2">Últimas incorporaciones</span>
+        <div className="flex-1 h-px bg-gray-200" />
+      </div>
+
+      {/* Productos recientes */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {[...Array(8)].map((_, i) => (

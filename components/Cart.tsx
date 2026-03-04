@@ -1,26 +1,40 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEuroRate, toBs } from "@/lib/useEuroRate";
 import WhatsAppCheckout from "./WhatsAppCheckout";
 
 export default function Cart() {
   const { items, removeFromCart, updateQuantity, total, isCartOpen, setIsCartOpen } = useCart();
+  const { user } = useAuth();
+  const router = useRouter();
+  const { tasa, fechaActualizacion, loading: rateLoading, error: rateError } = useEuroRate();
+
+  // Formatea la fecha de actualización de la tasa
+  const fechaLabel = fechaActualizacion
+    ? new Date(fechaActualizacion).toLocaleDateString("es-VE", {
+      day: "2-digit",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    : null;
 
   return (
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/30 backdrop-blur-sm z-50 transition-opacity duration-300 ${
-          isCartOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/30 backdrop-blur-sm z-50 transition-opacity duration-300 ${isCartOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         onClick={() => setIsCartOpen(false)}
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-full max-w-md bg-white/95 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 ease-out ${
-          isCartOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-full max-w-md bg-white/95 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 ease-out ${isCartOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
@@ -41,6 +55,30 @@ export default function Cart() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+          </div>
+
+          {/* Tasa BCV Euro */}
+          <div className="px-6 py-2.5 border-b border-gray-100 bg-gradient-to-r from-purple-50/60 to-pink-50/60">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-semibold text-purple-700">$ Tasa BCV</span>
+                {rateLoading && (
+                  <div className="w-3 h-3 rounded-full border-2 border-purple-400 border-t-transparent animate-spin" />
+                )}
+              </div>
+              {rateError ? (
+                <span className="text-xs text-red-400">No disponible</span>
+              ) : tasa ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-purple-800">
+                    1 € = Bs. {tasa.toLocaleString("es-VE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                  {fechaLabel && (
+                    <span className="text-[10px] text-gray-400">{fechaLabel}</span>
+                  )}
+                </div>
+              ) : null}
+            </div>
           </div>
 
           {/* Items */}
@@ -75,9 +113,16 @@ export default function Cart() {
                     <h3 className="text-sm font-semibold text-gray-800 truncate">
                       {item.product.title}
                     </h3>
+                    {/* Price in € */}
                     <p className="text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-                      ${item.product.price.toFixed(2)}
+                      €{item.product.price.toFixed(2)}
                     </p>
+                    {/* Price in Bs */}
+                    {tasa && (
+                      <p className="text-xs text-gray-400 mt-0.5">
+                        Bs. {toBs(item.product.price, tasa)}
+                      </p>
+                    )}
 
                     <div className="flex items-center gap-2 mt-2">
                       <button
@@ -107,9 +152,16 @@ export default function Cart() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
                     </button>
-                    <span className="text-sm font-bold text-gray-700">
-                      ${(item.product.price * item.quantity).toFixed(2)}
-                    </span>
+                    <div className="text-right">
+                      <p className="text-sm font-bold text-gray-700">
+                        €{(item.product.price * item.quantity).toFixed(2)}
+                      </p>
+                      {tasa && (
+                        <p className="text-[11px] text-gray-400">
+                          Bs. {toBs(item.product.price * item.quantity, tasa)}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))
@@ -119,15 +171,56 @@ export default function Cart() {
           {/* Footer */}
           {items.length > 0 && (
             <div className="border-t border-gray-100 p-6 space-y-4">
+              {/* Total en € */}
               <div className="flex items-center justify-between">
                 <span className="text-gray-600 font-medium">Total:</span>
-                <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-                  ${total.toFixed(2)}
-                </span>
+                <div className="text-right">
+                  <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                    €{total.toFixed(2)}
+                  </p>
+                  {/* Total en Bs */}
+                  {tasa && (
+                    <p className="text-sm font-semibold text-gray-500">
+                      Bs. {toBs(total, tasa)}
+                    </p>
+                  )}
+                </div>
               </div>
-              <WhatsAppCheckout />
+
+              {user ? (
+                <WhatsAppCheckout />
+              ) : (
+                <div className="rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 p-5 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500">
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-semibold text-gray-800">Inicia sesión para continuar</p>
+                  </div>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    Necesitas una cuenta para finalizar tu compra. ¡Es rápido y gratis!
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => { setIsCartOpen(false); router.push("/login?redirect=checkout"); }}
+                      className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-md shadow-purple-500/25 active:scale-95 transition-all duration-200"
+                    >
+                      Iniciar Sesión
+                    </button>
+                    <button
+                      onClick={() => { setIsCartOpen(false); router.push("/register?redirect=checkout"); }}
+                      className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-purple-600 border border-purple-200 hover:bg-purple-50 active:scale-95 transition-all duration-200"
+                    >
+                      Registrarse
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
+
         </div>
       </div>
     </>

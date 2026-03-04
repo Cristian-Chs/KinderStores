@@ -18,3 +18,18 @@ export interface Category {
   id: string;
   name: string;
 }
+
+export interface LiveItem {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  badge: string;
+  createdAt: number;
+}
+
+export interface LiveSettings {
+  dateText: string;
+  isActive: boolean;
+}

@@ -1,13 +1,24 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 
 export default function WhatsAppCheckout() {
-  const { items, total, clearCart } = useCart();
+  const { items, total, clearCart, setIsCartOpen } = useCart();
+  const { user } = useAuth();
+  const router = useRouter();
 
   const handleCheckout = () => {
     if (items.length === 0) return;
+
+    // Require login to complete purchase
+    if (!user) {
+      setIsCartOpen(false);
+      router.push("/login?redirect=checkout");
+      return;
+    }
 
     const productList = items
       .map(

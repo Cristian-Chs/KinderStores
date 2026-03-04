@@ -127,7 +127,7 @@ export default function Navbar() {
           ))}
           {user ? (
             <>
-              {user.email === "admin@kinderpapeleria.com" && (
+              {user.email === "admin@kinderstore.com" && (
                 <Link
                   href="/admin"
                   onClick={() => setIsMenuOpen(false)}

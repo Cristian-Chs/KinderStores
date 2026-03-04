@@ -1,19 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function RegisterPage() {
+function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, loginWithGoogle } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const fromCheckout = searchParams.get("redirect") === "checkout";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,10 +36,36 @@ export default function RegisterPage() {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      router.push("/");
+    } catch (err: any) {
+      setError("Error al registrarse con Google.");
+      console.error(err);
+    }
+  };
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md animate-fade-in-up">
         <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-xl shadow-purple-500/10 border border-white/40">
+
+          {/* Checkout context banner */}
+          {fromCheckout && (
+            <div className="mb-6 flex items-start gap-3 rounded-2xl bg-purple-50 border border-purple-100 p-4">
+              <div className="p-1.5 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex-shrink-0">
+                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-purple-800">¡Ya casi terminas tu pedido!</p>
+                <p className="text-xs text-purple-600 mt-0.5">Crea tu cuenta gratis para finalizar tu compra por WhatsApp.</p>
+              </div>
+            </div>
+          )}
+
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Crea tu cuenta
@@ -102,14 +130,42 @@ export default function RegisterPage() {
             </button>
           </form>
 
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-gray-400">O continúa con</span>
+            </div>
+          </div>
+
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center gap-3 transition-all"
+          >
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+            <span className="text-gray-700 font-medium">Continuar con Google</span>
+          </button>
+
           <p className="text-center mt-6 text-sm text-gray-500">
             ¿Ya tienes una cuenta?{" "}
-            <Link href="/login" className="text-purple-600 font-semibold hover:underline">
+            <Link
+              href={fromCheckout ? "/login?redirect=checkout" : "/login"}
+              className="text-purple-600 font-semibold hover:underline"
+            >
               Inicia sesión aquí
             </Link>
           </p>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-purple-400 border-t-transparent animate-spin" /></div>}>
+      <RegisterForm />
+    </Suspense>
   );
 }
