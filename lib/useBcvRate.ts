@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-interface EuroRateState {
+interface BcvRateState {
     tasa: number | null;
     fechaActualizacion: string | null;
     loading: boolean;
     error: boolean;
 }
 
-export function useEuroRate(): EuroRateState {
-    const [state, setState] = useState<EuroRateState>({
+export function useBcvRate(): BcvRateState {
+    const [state, setState] = useState<BcvRateState>({
         tasa: null,
         fechaActualizacion: null,
         loading: true,
@@ -22,7 +22,7 @@ export function useEuroRate(): EuroRateState {
 
         async function fetchRate() {
             try {
-                const res = await fetch("/api/tasa-euro");
+                const res = await fetch("/api/tasa-bcv");
                 if (!res.ok) throw new Error("Error de red");
                 const data = await res.json();
                 if (!cancelled) {
@@ -47,9 +47,9 @@ export function useEuroRate(): EuroRateState {
     return state;
 }
 
-/** Convierte un monto en euros (€) a bolívares (Bs.) */
-export function toBs(euros: number, tasa: number): string {
-    return (euros * tasa).toLocaleString("es-VE", {
+/** Convierte un monto en dólares ($) a bolívares (Bs.) */
+export function toBs(dollars: number, tasa: number): string {
+    return (dollars * tasa).toLocaleString("es-VE", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });

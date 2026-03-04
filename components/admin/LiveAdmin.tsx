@@ -124,8 +124,8 @@ export default function LiveAdmin() {
                         <button
                             onClick={() => handleSaveSettings({ ...settings, isActive: !settings.isActive })}
                             className={`px-6 py-2.5 rounded-2xl font-bold text-sm shadow-md transition-all ${settings.isActive
-                                    ? "bg-red-50 text-red-600 border border-red-200 hover:bg-red-100"
-                                    : "bg-red-500 text-white shadow-red-500/25 hover:bg-red-600"
+                                ? "bg-red-50 text-red-600 border border-red-200 hover:bg-red-100"
+                                : "bg-red-500 text-white shadow-red-500/25 hover:bg-red-600"
                                 }`}
                         >
                             {settings.isActive ? "Apagar Live" : "Encender Live"}
@@ -189,7 +189,7 @@ export default function LiveAdmin() {
                                             {item.badge && <span className="px-2 py-0.5 rounded-full text-[10px] uppercase font-bold bg-orange-100 text-orange-700">{item.badge}</span>}
                                         </div>
                                         <h3 className="font-bold text-gray-800 truncate">{item.title}</h3>
-                                        <p className="text-sm font-bold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">€{item.price.toFixed(2)}</p>
+                                        <p className="text-sm font-bold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">${item.price.toFixed(2)}</p>
                                     </div>
 
                                     <div className="flex items-center gap-2">
@@ -227,7 +227,7 @@ export default function LiveAdmin() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-700 mb-1">Precio (€)</label>
+                                    <label className="block text-xs font-medium text-gray-700 mb-1">Precio ($)</label>
                                     <input required type="number" step="0.01" min="0" value={price} onChange={e => setPrice(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/70 focus:ring-2 focus:ring-red-400/20 focus:border-red-400 outline-none text-sm" />
                                 </div>
                                 <div>

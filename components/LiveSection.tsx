@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { collection, doc, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { useCart } from "@/context/CartContext";
-import { useEuroRate, toBs } from "@/lib/useEuroRate";
+import { useBcvRate, toBs } from "@/lib/useBcvRate";
 import { LiveItem, LiveSettings } from "@/types";
 
 function LiveCard({ item }: { item: LiveItem }) {
     const { addToCart } = useCart();
-    const { tasa } = useEuroRate();
+    const { tasa } = useBcvRate();
 
     const asProduct = {
         id: item.id,
@@ -55,7 +55,7 @@ function LiveCard({ item }: { item: LiveItem }) {
                 <div className="flex items-end justify-between pt-1 gap-2">
                     <div>
                         <p className="text-lg font-bold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
-                            €{item.price.toFixed(2)}
+                            ${item.price.toFixed(2)}
                         </p>
                         {tasa && (
                             <p className="text-xs text-gray-400">Bs. {toBs(item.price, tasa)}</p>

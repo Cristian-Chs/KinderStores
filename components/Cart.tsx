@@ -3,14 +3,14 @@
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEuroRate, toBs } from "@/lib/useEuroRate";
+import { useBcvRate, toBs } from "@/lib/useBcvRate";
 import WhatsAppCheckout from "./WhatsAppCheckout";
 
 export default function Cart() {
   const { items, removeFromCart, updateQuantity, total, isCartOpen, setIsCartOpen } = useCart();
   const { user } = useAuth();
   const router = useRouter();
-  const { tasa, fechaActualizacion, loading: rateLoading, error: rateError } = useEuroRate();
+  const { tasa, fechaActualizacion, loading: rateLoading, error: rateError } = useBcvRate();
 
   // Formatea la fecha de actualización de la tasa
   const fechaLabel = fechaActualizacion
@@ -71,7 +71,7 @@ export default function Cart() {
               ) : tasa ? (
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-purple-800">
-                    1 € = Bs. {tasa.toLocaleString("es-VE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    1 $ = Bs. {tasa.toLocaleString("es-VE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </span>
                   {fechaLabel && (
                     <span className="text-[10px] text-gray-400">{fechaLabel}</span>
@@ -113,9 +113,9 @@ export default function Cart() {
                     <h3 className="text-sm font-semibold text-gray-800 truncate">
                       {item.product.title}
                     </h3>
-                    {/* Price in € */}
+                    {/* Price in $ */}
                     <p className="text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-                      €{item.product.price.toFixed(2)}
+                      ${item.product.price.toFixed(2)}
                     </p>
                     {/* Price in Bs */}
                     {tasa && (
@@ -154,7 +154,7 @@ export default function Cart() {
                     </button>
                     <div className="text-right">
                       <p className="text-sm font-bold text-gray-700">
-                        €{(item.product.price * item.quantity).toFixed(2)}
+                        ${(item.product.price * item.quantity).toFixed(2)}
                       </p>
                       {tasa && (
                         <p className="text-[11px] text-gray-400">
@@ -171,12 +171,12 @@ export default function Cart() {
           {/* Footer */}
           {items.length > 0 && (
             <div className="border-t border-gray-100 p-6 space-y-4">
-              {/* Total en € */}
+              {/* Total en $ */}
               <div className="flex items-center justify-between">
                 <span className="text-gray-600 font-medium">Total:</span>
                 <div className="text-right">
                   <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-                    €{total.toFixed(2)}
+                    ${total.toFixed(2)}
                   </p>
                   {/* Total en Bs */}
                   {tasa && (

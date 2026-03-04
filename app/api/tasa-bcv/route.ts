@@ -1,10 +1,10 @@
-// Revalida cada hora — Next.js cacheará la respuesta en Vercel
-export const revalidate = 3600;
+// Fetch the official rate without caching (or with minimal caching)
+export const revalidate = 0;
 
 export async function GET() {
     try {
-        const res = await fetch("https://ve.dolarapi.com/v1/dolares/euro", {
-            next: { revalidate: 3600 },
+        const res = await fetch("https://ve.dolarapi.com/v1/dolares/oficial", {
+            cache: "no-store",
         });
 
         if (!res.ok) {
@@ -18,9 +18,9 @@ export async function GET() {
             fechaActualizacion: data.fechaActualizacion as string,
         });
     } catch (error) {
-        console.error("Error fetching euro rate:", error);
+        console.error("Error fetching bcv rate:", error);
         return Response.json(
-            { error: "No se pudo obtener la tasa del euro" },
+            { error: "No se pudo obtener la tasa del dolar BCV" },
             { status: 500 }
         );
     }
