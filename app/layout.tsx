@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "KinderStorePF | Tu Tienda Favorita",
+  title: "KinderStorePFPF | Tu Tienda Favorita",
   description: "Encuentra los mejores productos escolares y de oficina. Cuadernos, lápices, mochilas y mucho más al mejor precio.",
   keywords: ["papelería", "útiles escolares", "cuadernos", "lápices", "mochilas", "oficina"],
   icons: {

@@ -1,4 +1,4 @@
-export const SITE_NAME = "KinderStore";
+export const SITE_NAME = "KinderStorePF";
 export const SITE_DESCRIPTION = "Tu tienda favorita con los mejores productos escolares y de oficina.";
 
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+1234567890";

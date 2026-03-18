@@ -64,7 +64,7 @@ function LoginForm() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Bienvenido de nuevo
             </h1>
-            <p className="text-gray-500 mt-2">Ingresa a tu cuenta de KinderStore</p>
+            <p className="text-gray-500 mt-2">Ingresa a tu cuenta de KinderStorePF</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

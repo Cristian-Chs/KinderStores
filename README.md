@@ -1,6 +1,6 @@
-# KinderStore — E-commerce de Papelería
+# KinderStorePF — E-commerce de Papelería
 
-Bienvenido a **KinderStore**, una plataforma de comercio electrónico moderna y minimalista diseñada para papelerías y tiendas de útiles escolares. Construida con tecnologías de vanguardia para ofrecer una experiencia rápida, fluida y profesional.
+Bienvenido a **KinderStorePF**, una plataforma de comercio electrónico moderna y minimalista diseñada para papelerías y tiendas de útiles escolares. Construida con tecnologías de vanguardia para ofrecer una experiencia rápida, fluida y profesional.
 
 ## Características Principales
 
