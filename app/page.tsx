@@ -111,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* Product Grid & Filtering */}
-      <section id="tienda" className="max-w-7xl mx-auto px-6 w-full scroll-mt-6">
+      <section id="tienda" className="max-w-7xl mx-auto px-4 sm:px-6 w-full scroll-mt-6">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-baseline gap-3">
@@ -142,14 +142,14 @@ export default function Home() {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="aspect-square rounded-3xl bg-gray-200 animate-pulse" />
               ))}
             </div>
           ) : paginatedProducts.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 stagger-children">
                 {paginatedProducts.map((product) => (
                   <ProductCard
                     key={product.id}

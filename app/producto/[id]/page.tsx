@@ -99,7 +99,7 @@ export default function ProductDetailPage() {
       {/* Main layout: Gallery + Info */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
         {/* LEFT — Gallery */}
-        <div className="w-full sticky top-24">
+        <div className="w-full lg:sticky lg:top-24">
           <ImageGallery images={images} alt={product.title} />
         </div>
 
@@ -243,7 +243,7 @@ export default function ProductDetailPage() {
             Más productos en{" "}
             <span className="text-purple-600">{product.category}</span>
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {related.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

@@ -23,7 +23,7 @@ export default function ProductCard({ product, onEdit }: ProductCardProps) {
   return (
     <div className="group bg-white/70 backdrop-blur-sm rounded-2xl border border-white/40 shadow-lg shadow-purple-500/5 overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300">
       {/* Image Gallery */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 p-2">
+      <div className="relative overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 p-1 sm:p-2">
         <ImageGallery
           images={product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls : [product.imageUrl]}
           alt={product.title}
@@ -58,21 +58,21 @@ export default function ProductCard({ product, onEdit }: ProductCardProps) {
       </div>
 
       {/* Info — clickable to detail */}
-      <Link href={`/producto/${product.id}`} className="p-4 space-y-3 block">
+      <Link href={`/producto/${product.id}`} className="p-3 sm:p-4 space-y-4 block">
         <h3 className="font-semibold text-gray-800 line-clamp-1 group-hover:text-purple-600 transition-colors">
           {product.title}
         </h3>
         <p className="text-sm text-gray-500 line-clamp-2">
           {product.description}
         </p>
-        <div className="flex items-center justify-between pt-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
           <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
             ${product.price.toFixed(2)}
           </span>
           <button
             onClick={(e) => { e.preventDefault(); if (isAvailable) addToCart(product); }}
             disabled={!isAvailable}
-            className={`px-4 py-2 rounded-xl text-sm font-medium text-white transition-all duration-200 ${
+            className={`w-full sm:w-auto px-4 py-2 rounded-xl text-sm font-medium text-white transition-all duration-200 ${
               isAvailable
                 ? "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-md shadow-purple-500/25 hover:shadow-lg hover:shadow-purple-500/30 active:scale-95"
                 : "bg-gray-300 cursor-not-allowed opacity-60"

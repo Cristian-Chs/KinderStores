@@ -107,7 +107,7 @@ export default function AdminPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 animate-fade-in-up">
             {/* Form Section */}
             <div className={`lg:col-span-1 ${showForm ? "block" : "hidden lg:block opacity-40 pointer-events-none"}`}>
-              <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-white/40 shadow-xl sticky top-24">
+              <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-white/40 shadow-xl lg:sticky lg:top-24">
                 <h2 className="text-xl font-bold text-gray-800 mb-6">
                   {editingProduct ? "Editar Producto" : "Agregar Nuevo"}
                 </h2>

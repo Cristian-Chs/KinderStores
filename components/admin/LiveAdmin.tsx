@@ -212,7 +212,7 @@ export default function LiveAdmin() {
 
                 {/* Creador / Editor */}
                 <div className={`lg:col-span-1 ${showForm ? "block" : "hidden lg:block opacity-40 pointer-events-none"}`}>
-                    <div className="bg-white/80 backdrop-blur-xl p-6 rounded-3xl border border-red-100 shadow-xl sticky top-24">
+                    <div className="bg-white/80 backdrop-blur-xl p-6 rounded-3xl border border-red-100 shadow-xl lg:sticky lg:top-24">
                         <h2 className="text-lg font-bold text-gray-800 mb-6">
                             {editingItem ? "Editar Artículo Live" : "Nuevo Artículo Live"}
                         </h2>
