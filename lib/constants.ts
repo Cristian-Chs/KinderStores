@@ -1,7 +1,7 @@
 export const SITE_NAME = "KinderStorePF";
-export const SITE_DESCRIPTION = "Tu tienda favorita con los mejores productos escolares y de oficina.";
+export const SITE_DESCRIPTION = "Tu tienda favorita con los mejores productos de productos variados. LLevando cariño en cada detalle";
 
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+1234567890";
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+58 412-1706340";
 
 export const ADMIN_EMAILS = [
   "adminkinder@gmail.com",

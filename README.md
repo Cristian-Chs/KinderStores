@@ -46,7 +46,7 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local:
    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu_bucket.firebasestorage.app
    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
    NEXT_PUBLIC_FIREBASE_APP_ID=tu_app_id
-   NEXT_PUBLIC_WHATSAPP_NUMBER=+584246188448
+   NEXT_PUBLIC_WHATSAPP_NUMBER=+584121706340
    ```
 
 4. **Inicia el servidor de desarrollo**:
