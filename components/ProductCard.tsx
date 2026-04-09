@@ -27,6 +27,7 @@ export default function ProductCard({ product, onEdit }: ProductCardProps) {
         <ImageGallery
           images={product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls : [product.imageUrl]}
           alt={product.title}
+          showThumbnails={false}
         />
 
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
