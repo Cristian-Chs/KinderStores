@@ -6,9 +6,10 @@ import Image from "next/image";
 interface ImageGalleryProps {
   images: string[];
   alt: string;
+  showThumbnails?: boolean;
 }
 
-export default function ImageGallery({ images, alt }: ImageGalleryProps) {
+export default function ImageGallery({ images, alt, showThumbnails = true }: ImageGalleryProps) {
   const validImages = images.filter(Boolean);
   const [activeIndex, setActiveIndex] = useState(0);
   const [fade, setFade] = useState(true);
@@ -58,8 +59,8 @@ export default function ImageGallery({ images, alt }: ImageGalleryProps) {
         )}
       </div>
 
-      {/* Thumbnails — only if more than one image */}
-      {validImages.length > 1 && (
+      {/* Thumbnails — only if more than one image AND showThumbnails is true */}
+      {showThumbnails && validImages.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {validImages.map((url, index) => (
             <button

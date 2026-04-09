@@ -26,7 +26,7 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 1. **Clona el repositorio**:
 
    ```bash
-   git clone [url-del-repo]
+   git clone
    cd Kinderpapeleria
    ```
 
