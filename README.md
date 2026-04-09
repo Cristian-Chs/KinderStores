@@ -26,27 +26,14 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 1. **Clona el repositorio**:
 
    ```bash
-   git clone [url-del-repo]
+   git clone
    cd Kinderpapeleria
    ```
-
+   
 2. **Instala las dependencias**:
 
-   ```bash
+   ```CMD
    npm install
-   ```
-
-3. **Configura las variables de entorno**:
-   Crea un archivo `.env.local` en la raíz del proyecto y añade tus credenciales de Firebase:
-
-   ```env
-   NEXT_PUBLIC_FIREBASE_API_KEY=tu_api_key
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=tu_dominio.firebaseapp.com
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu_project_id
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu_bucket.firebasestorage.app
-   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
-   NEXT_PUBLIC_FIREBASE_APP_ID=tu_app_id
-   NEXT_PUBLIC_WHATSAPP_NUMBER=+584121706340
    ```
 
 4. **Inicia el servidor de desarrollo**:
