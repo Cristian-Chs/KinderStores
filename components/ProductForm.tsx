@@ -28,6 +28,7 @@ export default function ProductForm({ product, onSave }: ProductFormProps) {
       : [""];
   const [imageUrls, setImageUrls] = useState<string[]>(initialUrls);
   const [available, setAvailable] = useState<boolean>(product?.available !== false);
+  const [onOrder, setOnOrder] = useState<boolean>(product?.onOrder || false);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -68,6 +69,7 @@ export default function ProductForm({ product, onSave }: ProductFormProps) {
         imageUrl: primaryUrl,          // retrocompat
         imageUrls: filteredUrls,       // new multi-image field
         available,
+        onOrder,
         createdAt: product?.createdAt || Date.now(),
         sales: product?.sales || 0,
       };
@@ -88,6 +90,7 @@ export default function ProductForm({ product, onSave }: ProductFormProps) {
         setUseCustomCategory(false);
         setImageUrls([""]);
         setAvailable(true);
+        setOnOrder(false);
       }
       setTimeout(() => setSuccess(false), 3000);
       onSave?.();
@@ -304,6 +307,30 @@ export default function ProductForm({ product, onSave }: ProductFormProps) {
           available ? "text-purple-600" : "text-gray-400"
         }`}>
           {available ? "En stock" : "Agotado"}
+        </span>
+      </div>
+      
+      {/* On Order Toggle */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-3">Bajo Encargo</label>
+        <button
+          type="button"
+          onClick={() => setOnOrder((v) => !v)}
+          className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none ${
+            onOrder ? "bg-pink-500" : "bg-gray-300"
+          }`}
+          aria-label="Producto bajo encargo"
+        >
+          <span
+            className={`inline-block h-5 w-5 rounded-full bg-white shadow-md transform transition-transform duration-300 ${
+              onOrder ? "translate-x-8" : "translate-x-1"
+            }`}
+          />
+        </button>
+        <span className={`ml-3 text-sm font-medium ${
+          onOrder ? "text-pink-600" : "text-gray-400"
+        }`}>
+          {onOrder ? "Sí (Bajo Encargo)" : "No"}
         </span>
       </div>
 

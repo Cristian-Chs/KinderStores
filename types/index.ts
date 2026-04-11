@@ -9,6 +9,7 @@ export interface Product {
   available?: boolean;
   createdAt: number;
   sales: number;
+  onOrder?: boolean;
 }
 
 export interface CartItem {
