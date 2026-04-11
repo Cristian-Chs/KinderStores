@@ -36,6 +36,11 @@ export default function ProductCard({ product, onEdit }: ProductCardProps) {
               Agotado
             </span>
           )}
+          {product.onOrder && (
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-pink-500 text-white shadow-sm group-hover:scale-105 transition-transform">
+              Bajo Encargo
+            </span>
+          )}
           <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/80 backdrop-blur-sm text-purple-600 border border-purple-100 shadow-sm">
             {product.category}
           </span>

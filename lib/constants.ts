@@ -22,5 +22,6 @@ export const NAV_LINKS = [
   { name: "Inicio", href: "/" },
   { name: "Más Vendidos", href: "/mas-vendidos" },
   { name: "Recientes", href: "/recientes" },
+  { name: "Bajo Encargo", href: "/bajo-encargos" },
   { name: "Contáctanos", href: "/contactanos" },
 ];
