@@ -53,7 +53,8 @@ export default function AdminPage() {
   };
 
   const filtered = products.filter((p) =>
-    p.title.toLowerCase().includes(search.toLowerCase())
+    p.title.toLowerCase().includes(search.toLowerCase()) ||
+    p.category.toLowerCase().includes(search.toLowerCase())
   );
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -134,7 +135,7 @@ export default function AdminPage() {
                     type="text"
                     value={search}
                     onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-                    placeholder="Buscar por nombre..."
+                    placeholder="Buscar por nombre o categoría..."
                     className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white/80 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-400 outline-none transition-all text-sm text-gray-700"
                   />
                   {search && (
