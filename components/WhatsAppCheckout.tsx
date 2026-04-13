@@ -21,10 +21,14 @@ export default function WhatsAppCheckout() {
     }
 
     const productList = items
-      .map(
-        (item) =>
-          `• ${item.product.title} (x${item.quantity}) - $${(item.product.price * item.quantity).toFixed(2)}`
-      )
+      .map((item) => {
+        if (item.product.onOrder) {
+          return `• ${item.product.title} (x${item.quantity}) - *Bajo Encargo*`;
+        }
+        return `• ${item.product.title} (x${item.quantity}) - $${(
+          item.product.price * item.quantity
+        ).toFixed(2)}`;
+      })
       .join("\n");
 
     const message = `¡Hola! Quiero realizar este pedido:\n\n${productList}\n\n💰 *Total: $${total.toFixed(2)}*\n\nAdjunto mi comprobante/cotización.`;

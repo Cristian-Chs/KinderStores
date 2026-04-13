@@ -113,15 +113,19 @@ export default function Cart() {
                     <h3 className="text-sm font-semibold text-gray-800 truncate">
                       {item.product.title}
                     </h3>
-                    {/* Price in $ */}
-                    <p className="text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-                      ${item.product.price.toFixed(2)}
-                    </p>
-                    {/* Price in Bs */}
-                    {tasa && (
-                      <p className="text-xs text-gray-400 mt-0.5">
-                        Bs. {toBs(item.product.price, tasa)}
-                      </p>
+                    {!item.product.onOrder ? (
+                      <>
+                        <p className="text-sm font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                          ${item.product.price.toFixed(2)}
+                        </p>
+                        {tasa && (
+                          <p className="text-xs text-gray-400 mt-0.5">
+                            Bs. {toBs(item.product.price, tasa)}
+                          </p>
+                        )}
+                      </>
+                    ) : (
+                      <p className="text-xs font-bold text-pink-500 uppercase">Consultar</p>
                     )}
 
                     <div className="flex items-center gap-2 mt-2">
@@ -153,13 +157,19 @@ export default function Cart() {
                       </svg>
                     </button>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-gray-700">
-                        ${(item.product.price * item.quantity).toFixed(2)}
-                      </p>
-                      {tasa && (
-                        <p className="text-[11px] text-gray-400">
-                          Bs. {toBs(item.product.price * item.quantity, tasa)}
-                        </p>
+                      {!item.product.onOrder ? (
+                        <>
+                          <p className="text-sm font-bold text-gray-700">
+                            ${(item.product.price * item.quantity).toFixed(2)}
+                          </p>
+                          {tasa && (
+                            <p className="text-[11px] text-gray-400">
+                              Bs. {toBs(item.product.price * item.quantity, tasa)}
+                            </p>
+                          )}
+                        </>
+                      ) : (
+                        <p className="text-xs font-bold text-pink-500">Bajo Encargo</p>
                       )}
                     </div>
                   </div>
@@ -173,7 +183,7 @@ export default function Cart() {
             <div className="border-t border-gray-100 p-6 space-y-4">
               {/* Total en $ */}
               <div className="flex items-center justify-between">
-                <span className="text-gray-600 font-medium">Total:</span>
+                <span className="text-gray-600 font-medium">Total estimado:</span>
                 <div className="text-right">
                   <p className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                     ${total.toFixed(2)}
@@ -186,6 +196,13 @@ export default function Cart() {
                   )}
                 </div>
               </div>
+
+              {items.some(i => i.product.onOrder) && (
+                <div className="p-3 rounded-xl bg-pink-50 border border-pink-100 text-[11px] text-pink-600 leading-tight">
+                  <span className="font-bold block mb-0.5">Nota:</span>
+                  Artículos "bajo encargo" no están incluidos en el total y serán cotizados por WhatsApp.
+                </div>
+              )}
 
               {user ? (
                 <WhatsAppCheckout />

@@ -129,13 +129,22 @@ export default function ProductDetailPage() {
             {product.title}
           </h1>
 
-          {/* Price */}
-          <div className="flex items-baseline gap-3">
-            <span className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-              ${product.price.toFixed(2)}
-            </span>
-            <span className="text-sm text-gray-400">USD</span>
-          </div>
+          {!product.onOrder ? (
+            <div className="flex items-baseline gap-3">
+              <span className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                ${product.price.toFixed(2)}
+              </span>
+              <span className="text-sm text-gray-400">USD</span>
+            </div>
+          ) : (
+            <div className="p-4 rounded-xl bg-pink-50 border border-pink-100 border-dashed">
+              <p className="text-pink-600 font-bold uppercase tracking-wider text-sm flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
+                Producto Bajo Encargo
+              </p>
+              <p className="text-xs text-pink-400 mt-1">El precio se consultará al finalizar el pedido.</p>
+            </div>
+          )}
 
           {/* Divider */}
           <hr className="border-gray-100" />
