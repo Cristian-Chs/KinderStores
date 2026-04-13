@@ -72,9 +72,15 @@ export default function ProductCard({ product, onEdit }: ProductCardProps) {
           {product.description}
         </p>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
-          <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-            ${product.price.toFixed(2)}
-          </span>
+          {!product.onOrder ? (
+            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+              ${product.price.toFixed(2)}
+            </span>
+          ) : (
+            <span className="text-sm font-bold text-pink-500 uppercase tracking-wide">
+              Bajo Encargo
+            </span>
+          )}
           <button
             onClick={(e) => { e.preventDefault(); if (isAvailable) addToCart(product); }}
             disabled={!isAvailable}
